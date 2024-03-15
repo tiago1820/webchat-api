@@ -1,3 +1,3 @@
 # perseverance
-Repositorio del chat - cliente
+Repositorio del chat - api
 
