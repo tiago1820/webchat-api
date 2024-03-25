@@ -1,5 +1,3 @@
-
-
 const findCurrentUser = async (req, res) => {
     try {
         const user = await req.user;
@@ -39,17 +37,26 @@ const searchUser = async (req, res) => {
     }
 }
 
+const editUser = async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
 
+        return res.status(200).send(updatedUser);
 
+    } catch (error) {
 
+    }
+}
 
+const deleteUser = async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
 
+        return res.status(200).send({ message: "user deleted succefully", user: deletedUser })
+    } catch (error) {
 
+    }
+}
 
-
-
-
-
-
-
+module.exports = { findCurrentUser, findUserById, searchUser, editUser, deleteUser }
