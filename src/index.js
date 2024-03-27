@@ -8,18 +8,14 @@ app.get('/', (req, res) => {
 
 // auth
 const authRoutes = require('./routes/auth.routes.js');
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 
 // user
 const userRoutes = require('./routes/user.routes.js');
 app.use('/users', userRoutes);
 
-// // chat
-// const chatRoutes = require('./routes/chat.routes.js');
-// app.use('/chats', chatRoutes);
-
-// // message
-// const messageRoutes = require('./routes/message.routes.js');
-// app.use('/messages', messageRoutes);
+// chat
+const chatRoutes = require("./routes/chat.routes.js");
+app.user("/chats",chatRoutes)
 
 module.exports = app;
