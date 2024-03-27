@@ -3,14 +3,14 @@ require("dotenv").config();
 
 const verifyToken = (token) => {
     return new Promise(function (resolve, reject) {
-        jwt.verifyToken(token, process.env.SECRET_KEY, function (err, user) {
+        jwt.verify(token, process.env.SECRET_KEY, function (err, user) {
             if (err) return reject(err);
             resolve(user);
         })
     })
 }
 
-const authenticate = async (req, res) => {
+const authenticate = async (req, res, next) => {
     if (!req.headers?.authorization) {
         return res.status(400).send({ message: "please provide a token" });
     }
@@ -23,7 +23,7 @@ const authenticate = async (req, res) => {
     const token = bearerToken.split(" ")[1];
     let user;
     try {
-        user = verifyToken(token);
+        user = await verifyToken(token);
     } catch (error) {
         return res.status(400).send(error.message);
     }
