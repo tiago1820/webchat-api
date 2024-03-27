@@ -1,3 +1,6 @@
+const User = require("../models/user.model");
+
+
 const findCurrentUser = async (req, res) => {
     try {
         const user = await req.user;
@@ -5,6 +8,7 @@ const findCurrentUser = async (req, res) => {
         currentUser.password = null;
         return res.status(200).send(currentUser);
     } catch (error) {
+        console.log("AQUI: ", error);
         return res.status(500).send(error.message);
     }
 }
@@ -31,8 +35,9 @@ const searchUser = async (req, res) => {
             ]
         } : {}
         const user = await User.find(keyword).select("username profile_image").skip(skip).limit(limits);
-        return res.status(200).send(users);
+        return res.status(200).send(user);
     } catch (error) {
+        console.log("AQUI: ", error);
         return res.status(500).send(error.message);
     }
 }
@@ -40,22 +45,20 @@ const searchUser = async (req, res) => {
 const editUser = async (req, res) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-
-
         return res.status(200).send(updatedUser);
-
     } catch (error) {
-
+        console.log("AQUI: ", error);
+        return res.status(500).send(error.message);
     }
 }
 
 const deleteUser = async (req, res) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.params.id);
-
         return res.status(200).send({ message: "user deleted succefully", user: deletedUser })
     } catch (error) {
-
+        console.log("AQUI: ", error);
+        return res.status(500).send(error.message);
     }
 }
 

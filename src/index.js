@@ -1,17 +1,21 @@
 const express = require("express");
-
 const app = express();
-
 app.use(express.json());
 
-app.get('/', (req, res)=> {
-    return res.send({message: 'Welcome to WebChat API.'})
+app.get('/', (req, res) => {
+    return res.send({ message: 'Welcome to WebChat API.' })
 })
 
+// auth
 const authRoutes = require('./routes/auth.routes.js');
 app.use('/', authRoutes);
+
+// user
 const userRoutes = require('./routes/user.routes.js');
 app.use('/users', userRoutes);
 
+// chat
+const chatRoutes = require("./routes/chat.routes.js");
+app.user("/chats",chatRoutes)
 
 module.exports = app;
