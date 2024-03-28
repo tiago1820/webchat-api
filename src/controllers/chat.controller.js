@@ -1,4 +1,4 @@
-
+const Chat = require("../models/chat.model");
 
 const createChat = async (req, res) => {
     try {
@@ -47,8 +47,7 @@ const createChat = async (req, res) => {
 const getAllChat = async (req, res) => {
     try {
         const reqUser = await req.user;
-        const chats = await Chat.find({ users: reqUser.user._id }.populate("users", "-password")
-        )
+        const chats = await Chat.find({ users: reqUser.user._id }).populate("users", "-password")
             .populate("groupAdmin", "-password")
             .populate("latestMessage")
             .sort({ timestamps: -1 })
