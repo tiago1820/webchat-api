@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const authenticate = require('../middleware/authenticate');
-const { createChat, renameGroup, addUserToGroup, removeUserFromGroup, } = require("../controllers/chat.controller");
+const { createChat, renameGroup, addUserToGroup, removeUserFromGroup, getAllChat} = require("../controllers/chat.controller");
 
 const router = Router();
 
